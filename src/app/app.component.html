@@ -1,0 +1,82 @@
+<div class="search">
+  <form #form="ngForm" (submit)="onSubmit()" >
+    
+    <input type="text" placeholder="Search City" name="city" [(ngModel)]="cityName" >
+    
+  </form>
+</div>
+<div class="container" *ngIf="weatherData">
+  <div class="upper">
+    <img src="../assets/hot1.jpeg" *ngIf="weatherData.current.temp_c >15">
+    <img src="../assets/cold.jpeg" *ngIf="weatherData.current.temp_c <= 15" > 
+    <div class="datas">
+      <div class="temperature">{{weatherData.current.temp_c | number:'1.0-0'}} °C</div><br>
+      <div class="location">
+            {{weatherData.location.name}}-{{weatherData.location.region}}-{{weatherData.location.country}}
+      </div>
+    </div>
+
+  </div>
+  <div class="lower">
+    <div class="moreinfo">
+      Additional Information
+    </div>
+    <div class="infocontainer">
+      <div class="block">
+        <div class="blocklabel">
+          <img src="../assets/mintemp.png">
+          <span>Temp</span>
+        </div>
+        <div class="blockvalue">
+          {{weatherData.current.temp_c}}°C
+        </div>
+      </div>
+      <div class="block">
+        <div class="blocklabel">
+          <img src="../assets/day.jpeg" *ngIf="weatherData.current.is_day == 1">
+          <img src="../assets/cold1.jpg" *ngIf="weatherData.current.is_day == 0">
+
+          <span>Day / Night</span>
+        </div>
+        <div class="blockvalue" *ngIf="weatherData.current.is_day == 1">
+          Day
+        </div>
+        <div class="blockvalue" *ngIf="weatherData.current.is_day == 0">
+          Night
+        </div>
+      </div>
+      <div class="block">
+        <div class="blocklabel">
+          <img src="../assets/humidity.png">
+          <span>Humidity</span>
+        </div>
+        <div class="blockvalue">
+          {{weatherData.current.humidity}}%
+        </div>
+      </div>
+      <div class="block">
+        <div class="blocklabel">
+          <img src="../assets/wind.png">
+          <span>Wind</span>
+        </div>
+        <div class="blockvalue">
+          {{weatherData.current.wind_kph  | number:'1.0-0'}}km/h
+        </div>
+      </div>
+    </div>
+    <div id="time">
+      
+      <h2 style="font-size:1em;color:#161515;padding-right: 20px;top:5px;text-shadow: 1px 1px white;">TIME --</h2>
+      <div id="minutes" style="--clr:#ffffff;">{{weatherData.location.localtime.slice(10,16)}}</div>
+      
+      
+     
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<router-outlet></router-outlet>
